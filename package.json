@@ -2,13 +2,21 @@
   "name": "unsplash-scraper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "bin": {
+    "unsplash": "bin/unsplash.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "remove-images": "rm -f images/*"
   },
-  "keywords": ["scrape", "unsplash", "crawl", "photo"],
+  "keywords": [
+    "scrape",
+    "unsplash",
+    "crawl",
+    "photo"
+  ],
   "author": "Michael Liendo",
   "license": "ISC",
   "dependencies": {

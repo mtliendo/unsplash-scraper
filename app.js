@@ -2,13 +2,13 @@ const fs = require('fs')
     cheerio = require('cheerio')
     axios = require('axios')
 
-
 const SEARCH_TERM = process.env.SEARCH_TERM || 'turtles'
 
 //1. fetch the site
 function fetchUnsplashData() {
     return axios.get(`https://unsplash.com/search/photos/${SEARCH_TERM}`)
         .then(res => res.data)
+        .catch(e => e.message)
 }
 
 //2. grabImages
@@ -32,12 +32,18 @@ function saveImages(images) {
             responseType: 'stream',
             url: image
         }).then((item) => {
-            item.data.pipe(fs.createWriteStream(`./images/${SEARCH_TERM}${index}.jpg`))
+            fs.mkdir('unsplash-images', () => {
+                item.data.pipe(fs.createWriteStream(`unsplash-images/${SEARCH_TERM}${index}.jpg`))
+            })
         })
+        .catch(e => e.message)
     })
 }
 
 //4. put them all together
-fetchUnsplashData()
-.then(grabImages)
-.then(saveImages)
+module.exports = unsplash = () => {
+    fetchUnsplashData()
+    .then(grabImages)
+    .then(saveImages)
+    .catch(e => console.log(e.message))
+} 
