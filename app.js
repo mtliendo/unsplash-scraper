@@ -2,10 +2,10 @@ const fs = require('fs')
     cheerio = require('cheerio')
     axios = require('axios')
 
-const SEARCH_TERM = process.env.SEARCH_TERM || 'turtles'
 
 //1. fetch the site
-function fetchUnsplashData() {
+function fetchUnsplashData(SEARCH_TERM) {
+    console.log(`fetching photos for: ${SEARCH_TERM}`)
     return axios.get(`https://unsplash.com/search/photos/${SEARCH_TERM}`)
         .then(res => res.data)
         .catch(e => e.message)
@@ -25,9 +25,10 @@ function grabImages(data) {
 }
 
 //3. saveImages
-function saveImages(images) {
-    images.map((index, image) => {
-        axios({
+function saveImages(SEARCH_TERM,images) {
+    console.log(`saving ${images.length} images...`)
+    return images.map((index, image) => {
+        return axios({
             method: 'get',
             responseType: 'stream',
             url: image
@@ -41,9 +42,10 @@ function saveImages(images) {
 }
 
 //4. put them all together
-module.exports = unsplash = () => {
-    fetchUnsplashData()
+module.exports = unsplash = (SEARCH_TERM) => {
+    fetchUnsplashData(SEARCH_TERM)
     .then(grabImages)
-    .then(saveImages)
+    .then(saveImages.bind(undefined, SEARCH_TERM))
+    .then(() => console.log('Wrapping up now...'))
     .catch(e => console.log(e.message))
 } 

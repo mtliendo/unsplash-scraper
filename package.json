@@ -1,6 +1,6 @@
 {
   "name": "unsplash-scraper",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "app.js",
   "bin": {
@@ -9,18 +9,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "remove-images": "rm -f images/*"
+    "remove-images": "rm -f unsplash-images/*"
   },
   "keywords": [
     "scrape",
     "unsplash",
     "crawl",
-    "photo"
+    "photo",
+    "command line"
   ],
   "author": "Michael Liendo",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
-    "cheerio": "^1.0.0-rc.2"
+    "cheerio": "^1.0.0-rc.2",
+    "yargs": "^11.0.0"
   }
 }
