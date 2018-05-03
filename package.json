@@ -6,6 +6,9 @@
   "bin": {
     "unsplash": "bin/unsplash.js"
   },
+  "engines": {
+    "node":">=8"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
